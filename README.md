@@ -33,4 +33,4 @@ Arduino UNO/Nano/Mega operates at 5V logic. However, the PN5180 works at 3.3V lo
 - NSS, BUSY, and RESET lines must be assigned to unique GPIO pins for each reader.
 
 
-![PN5180 to Arduino using SPI](https://raw.githubusercontent.com/playfultechnology/arduino-rfid-PN5180/master/documentation/PN5180_bb.jpg)
+![PN5180 to Arduino using SPI](https://raw.githubusercontent.com/playfultechnology/arduino-rfid-PN5180/6695381508d0bcaf51e45f6b98b51af6318de0e9/documentation/PN5180_bb.jpg)
