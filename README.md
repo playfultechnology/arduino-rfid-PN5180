@@ -1,6 +1,6 @@
 # arduino-rfid-PN5180
 Interfacing Arduino with 13.56MHz ISO15693 RFID tags using PN5180 modules
-![PN5180 module](https://github.com/playfultechnology/arduino-rfid-RDM6300/raw/master/documentation/RDM6300.jpg)
+![PN5180 module](https://raw.githubusercontent.com/playfultechnology/arduino-rfid-PN5180/master/documentation/PN5180.jpg)
 
 The PN5180 reader uses the ISO15693 "vicinity card" protocol, which offers a significantly longer read range than the ISO14443 "proximity card" protocol seen in other common RFID readers such as MFRC522 or PN532. It uses SPI interface, which can be shared between a number of readers. Each reader also requires their own slave select, reset, and busy lines.
 For a comparison of alternative readers, see https://www.patreon.com/posts/rfid-roundup-23115452
