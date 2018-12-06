@@ -18,12 +18,16 @@ There are 13 pins on the 5180 board, as follows:
 - MOSI : Master-Out, Slave-In used for transmitting data from Arduino to the reader *
 - MISO : Master-In, Slave-Out used for transmitting data from the reader to the Arduino
 - SCK : System Clock signal sent from Arduino *
-- BUSY : Pulled high when the reader is in a busy state
+- BUSY : Used by reader to report busy state
 - GND : Ground
 - GPIO : Can be used as general-purpose output pin from the reader (e.g. to power an LED)
 - IRQ : Not required
 - AUX : Not required
 - REQ : Not required
+
+The PN5180 works at 3.3V logic level, and is not 5V tolerant. If using an Arduino that uses 5V logic instead (e.g. Uno/Nano), you **must** use a 5V <-> 3.3V level shifter on any lines that send HIGH output from the Arduino to the reader. These are RST, NSS, MOSI, and SCK marked with an asterisk in the list above. You **may** use a 3.3V <-> 5V level shifter on those lines that send HIGH output from the reader to the Arduino (MISO, BUSY) though this is not generally necessary - a HIGH 3.3V signal will normally be recognised as a HIGH signal on a 5V system too.
+MOSI, MISO, and SCK lines may be shared between all readers, and use Arduino SPI pins 11(MOSI), 12(MISO), and 13(SCK). 
+NSS, BUSY, and RESET lines must be assigned to unique GPIO pins for each reader.
 
 
 ![PN5180 to Arduino using SPI](https://raw.githubusercontent.com/playfultechnology/arduino-rfid-PN5180/master/documentation/PN5180_bb.jpg)
