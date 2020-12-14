@@ -14,7 +14,7 @@
 
 // CONSTANTS
 // The number of PN5180 readers connected
-const byte numReaders = 2;
+const byte numReaders = 4;
 // What is the "correct" UID that should be detected by each reader
 uint8_t correctUid[][8] = {
   {0xD1,0xD2,0x48,0x2A,0x50,0x1,0x4,0xE0},
@@ -27,8 +27,12 @@ const byte relayPin = A0;
 // Each PN5180 reader requires unique NSS, BUSY, and RESET pins,
 // as defined in the constructor below
 PN5180ISO15693 nfc[] = {
-  PN5180ISO15693(9,7,5),
-  PN5180ISO15693(10,8,6),
+  PN5180ISO15693(2,15,0), // works
+  PN5180ISO15693(16,4,17), // works
+  PN5180ISO15693(33,25,32), // works
+  PN5180ISO15693(21,5,22), // works
+  
+
 };
 // Array to record the value of the last UID read by each reader
 uint8_t lastUid[numReaders][8];
@@ -107,7 +111,7 @@ void loop() {
     }
  
     // Slight delay before checking the next reader
-    delay(100);
+    delay(10);
   }
 }
 
@@ -126,11 +130,8 @@ void checkIfPuzzleSolved() {
     // If this reader hasn't detected the correct tag
     if(memcmp(lastUid[i], correctUid[i], 8) != 0){
       // Exit
-      return false;
+      return;
     }
   }
   onPuzzleSolved();
 }
-
-
-
