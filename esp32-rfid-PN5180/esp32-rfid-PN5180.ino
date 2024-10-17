@@ -13,7 +13,7 @@
 // What is the "correct" UID that should be detected by the reader
 uint8_t correctUid[8] = {0xD1,0xD2,0x48,0x2A,0x50,0x1,0x4,0xE0};
 // This pin will be driven LOW when the puzzle is solved
-const byte relayPin = A0;
+const byte relayPin = 27;
 
 // GLOBALS
 // Each PN5180 reader requires unique NSS, BUSY, and RESET pins,
