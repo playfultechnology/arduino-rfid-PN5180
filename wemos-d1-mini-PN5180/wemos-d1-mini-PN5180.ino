@@ -1,12 +1,11 @@
 // Wemos D1 Mini + PN5180 RFID reader
-// Uses Arduino Library Manager library:
-// "PN5180" by Alastair Aitchison / Playful Technology
+// Uses a sketch-local copy of PN5180 by Alastair Aitchison / Playful Technology.
 
 #include <EEPROM.h>
 #define EEPROM_SIZE 64
 
 #include <SPI.h>
-#include <PN5180.h>
+#include "src/PN5180/PN5180.h"
 #include <U8g2lib.h>
 
 // ---------- PINS ----------
@@ -103,14 +102,15 @@ void showUIDOnOLED(const byte *uid, byte size) {
 
   u8g2.setFont(u8g2_font_t0_15b_mr);
   u8g2.drawStr(0, 32, tagStr);
-  u8g2.sendBuffer();
+  // The tag occupies the bottom three 8-pixel tile rows.
+  u8g2.updateDisplayArea(0, 1, 16, 3);
 }
 
 void clearOLEDTagArea() {
   u8g2.setDrawColor(0);
   u8g2.drawBox(0, 10, 128, 22);
   u8g2.setDrawColor(1);
-  u8g2.sendBuffer();
+  u8g2.updateDisplayArea(0, 1, 16, 3);
 }
 
 
@@ -223,11 +223,15 @@ void loop() {
       currentUIDSize = newUIDSize;
       tagPresent = true;
 
+      // Signal a match before serial logging and the OLED transfer.
+      if (isSameAsStored()) {
+        pulseOutput(10);
+      }
+
       Serial.print("UID: ");
       printUID(currentUID, currentUIDSize);
 
       showUIDOnOLED(currentUID, currentUIDSize);
-      pulseOutput(10);
     } else {
       tagPresent = true;
     }
